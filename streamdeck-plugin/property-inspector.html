@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Controller Settings</title>
+  <link rel="stylesheet" href="https://sdpi-components.dev/releases/v3/sdpi.css">
+</head>
+<body>
+  <div class="sdpi-wrapper">
+
+    <!-- Play/Pause has no settings -->
+    <div id="settings-playpause" class="sdpi-item" style="display:none">
+      <div class="sdpi-item-label">No settings needed</div>
+    </div>
+
+    <!-- Skip settings -->
+    <div id="settings-skip" class="sdpi-item" style="display:none">
+      <div class="sdpi-item-label">Skip Duration</div>
+      <div class="sdpi-item-value">
+        <select id="skip-seconds" class="sdpi-item-value">
+          <option value="5">5 seconds</option>
+          <option value="10" selected>10 seconds</option>
+          <option value="30">30 seconds</option>
+          <option value="60">60 seconds</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Volume settings -->
+    <div id="settings-volume" class="sdpi-item" style="display:none">
+      <div class="sdpi-item-label">Volume Step</div>
+      <div class="sdpi-item-value">
+        <select id="volume-step" class="sdpi-item-value">
+          <option value="0.05">5%</option>
+          <option value="0.10" selected>10%</option>
+          <option value="0.20">20%</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sdpi-item">
+      <div class="sdpi-item-label" style="color:#888; font-size:11px;">
+        Make sure the YouTube Stream Deck Bridge extension is installed in Firefox.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const actionUUID = window.actionUUID || '';
+
+    function showSettingsFor(uuid) {
+      document.getElementById('settings-playpause').style.display = 'none';
+      document.getElementById('settings-skip').style.display = 'none';
+      document.getElementById('settings-volume').style.display = 'none';
+
+      if (uuid.includes('playpause')) {
+        document.getElementById('settings-playpause').style.display = '';
+      } else if (uuid.includes('skip')) {
+        document.getElementById('settings-skip').style.display = '';
+      } else if (uuid.includes('volume')) {
+        document.getElementById('settings-volume').style.display = '';
+      }
+    }
+
+    // Stream Deck Property Inspector SDK
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof connectElgatoStreamDeckSocket !== 'undefined') {
+        connectElgatoStreamDeckSocket(
+          window.port, window.propertyInspectorUUID, window.registerEvent,
+          window.info, window.actionInfo
+        );
+      }
+    });
+
+    function onSendToPropertyInspector(jsn) {
+      showSettingsFor(jsn.action || '');
+    }
+
+    document.getElementById('skip-seconds')?.addEventListener('change', (e) => {
+      const payload = { settings: { seconds: parseInt(e.target.value) } };
+      window.sendValueToPlugin(JSON.stringify(payload), 'settings');
+    });
+
+    document.getElementById('volume-step')?.addEventListener('change', (e) => {
+      const payload = { settings: { step: parseFloat(e.target.value) } };
+      window.sendValueToPlugin(JSON.stringify(payload), 'settings');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿{
+  "Author": "Your Name",
+  "CodePath": "launch.bat",
+  "CodePathWin": "launch.bat",
+  "Description": "Control YouTube playback from your Stream Deck",
+  "Icon": "icons/plugin",
+  "Name": "YouTube Controller",
+  "Actions": [
+    {
+      "Icon": "icons/playpause",
+      "Name": "Play / Pause",
+      "States": [
+        { "Image": "icons/play", "Title": "" },
+        { "Image": "icons/pause", "Title": "" }
+      ],
+      "SupportedInMultiActions": true,
+      "UUID": "com.youtube.controller.playpause"
+    },
+    {
+      "Icon": "icons/skipforward",
+      "Name": "Skip Forward 10s",
+      "States": [{ "Image": "icons/skipforward", "Title": "" }],
+      "SupportedInMultiActions": true,
+      "UUID": "com.youtube.controller.skipforward"
+    },
+    {
+      "Icon": "icons/skipback",
+      "Name": "Skip Back 10s",
+      "States": [{ "Image": "icons/skipback", "Title": "" }],
+      "SupportedInMultiActions": true,
+      "UUID": "com.youtube.controller.skipback"
+    },
+    {
+      "Icon": "icons/volumeup",
+      "Name": "Volume Up",
+      "States": [{ "Image": "icons/volumeup", "Title": "" }],
+      "SupportedInMultiActions": true,
+      "UUID": "com.youtube.controller.volumeup"
+    },
+    {
+      "Icon": "icons/volumedown",
+      "Name": "Volume Down",
+      "States": [{ "Image": "icons/volumedown", "Title": "" }],
+      "SupportedInMultiActions": true,
+      "UUID": "com.youtube.controller.volumedown"
+    }
+  ],
+  "Category": "YouTube",
+  "CategoryIcon": "icons/category",
+  "OS": [
+    { "MinimumVersion": "10", "Platform": "windows" },
+    { "MinimumVersion": "10.11", "Platform": "mac" }
+  ],
+  "SDKVersion": 2,
+  "Software": { "MinimumVersion": "5.0" },
+  "UUID": "com.youtube.controller",
+  "Version": "1.0.0"
+}
